@@ -44,17 +44,7 @@
 					</tr>
 	    		</tbody>
 	    		
-	    		<tbody>
-				<c:forEach items="${spaceMarines}" var="spaceMarine">
-					<tr>
-						<td>${spaceMarine.miniatureName}</td>
-						<td></td>
-						<td>${spaceMarine.miniatureType}</td>
-						<td></td>
-						<td>${spaceMarine.miniatureSize}</td>
-					</tr>
-				</c:forEach>
-	    		</tbody>
+	    	
 	    	</table>
 		</div>
 
