@@ -47,13 +47,6 @@ public class OrderDetailsDAOImpl extends AbstractDao<Integer, OrderDetails> impl
 		return orderDeatils;
 	}
 
-	@Override
-	public List<OrderDetails> findAllOrderDetailsByChart(int chartId) {
-		Criteria criteria = createEntityCriteria().addOrder(org.hibernate.criterion.Order.asc("order_detail_id"));
-		criteria.add(Restrictions.eq("chartId", chartId));
-		List<OrderDetails> orderDeatils = (List<OrderDetails>) criteria.list();
-		return orderDeatils;
-	}
 
 	@Override
 	public List<OrderDetails> findAllOrderDetailsByOrder(int orderId) {

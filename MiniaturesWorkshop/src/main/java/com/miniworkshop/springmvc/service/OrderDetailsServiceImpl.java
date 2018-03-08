@@ -46,10 +46,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
 		return dao.findAllOrderDetails();
 	}
 
-	@Override
-	public List<OrderDetails> findAllOrderDetailsByChart(int chartId) {
-		return dao.findAllOrderDetailsByChart(chartId);
-	}
 
 	@Override
 	public List<OrderDetails> findAllOrderDetailsByOrder(int  orderId) {

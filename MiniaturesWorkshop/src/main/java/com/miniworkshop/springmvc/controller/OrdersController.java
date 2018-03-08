@@ -1,9 +1,12 @@
 package com.miniworkshop.springmvc.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -24,10 +27,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.miniworkshop.springmvc.dao.OrderDeatilsDAO;
 import com.miniworkshop.springmvc.model.Faction;
 import com.miniworkshop.springmvc.model.GameSystem;
 import com.miniworkshop.springmvc.model.Manufacturer;
 import com.miniworkshop.springmvc.model.Miniature;
+import com.miniworkshop.springmvc.model.Order;
 import com.miniworkshop.springmvc.model.OrderDetails;
 import com.miniworkshop.springmvc.model.User;
 import com.miniworkshop.springmvc.service.BaseService;
@@ -63,15 +68,26 @@ public class OrdersController {
 
 	@Autowired
 	BaseService baseService;
-	
+
 	@Autowired
 	OrderDetailsService orderDetailsService;
-	
+
 	@Autowired
 	OrderService orderService;
 
 	@RequestMapping(value = { "/stage1" }, method = RequestMethod.GET)
 	public String showManufacturers(ModelMap model) {
+		
+		User user = userService.findBySSO(getPrincipal());
+		
+		Order  possibleOrder = orderService.findCurrentOrder(user.getId());
+		if (possibleOrder == null) {
+			possibleOrder = new Order();
+			possibleOrder.setCustomerId(user.getId());
+			possibleOrder.setPainterId(1);
+			possibleOrder.setOrderStatus("CREATING");
+			orderService.saveOrder(possibleOrder);
+		}
 
 		List<Manufacturer> manufList = manufacturerService.findAllManufacturers();
 		model.addAttribute("manufacturers", manufList);
@@ -81,7 +97,7 @@ public class OrdersController {
 			System.out.println(manufacturer.getManufLogoLink());
 		}
 
-		User user = userService.findBySSO(getPrincipal());
+		
 
 		model.addAttribute("loggedinuser", user);
 
@@ -90,7 +106,7 @@ public class OrdersController {
 
 	@RequestMapping(value = { "/stage2-{manuf_id}" }, method = RequestMethod.GET)
 	public String showGameSystems(ModelMap model, @PathVariable String manuf_id) {
-		
+
 		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 
@@ -99,11 +115,10 @@ public class OrdersController {
 
 		return "makeOrderStage2";
 	}
-	
+
 	@RequestMapping(value = { "/stage3-{gs_id}" }, method = RequestMethod.GET)
 	public String showFactions(@PathVariable String gs_id, ModelMap model) {
 
-		
 		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 
@@ -112,12 +127,10 @@ public class OrdersController {
 
 		return "makeOrderStage3";
 	}
-	
-	
+
 	@RequestMapping(value = { "/stage4-{faction_id}" }, method = RequestMethod.GET)
 	public String showMiniatures(@PathVariable String faction_id, ModelMap model) {
 
-		
 		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 
@@ -126,54 +139,73 @@ public class OrdersController {
 
 		return "makeOrderStage4";
 	}
-	
 
 	@RequestMapping(value = { "/stage5-{miniature_id}" }, method = RequestMethod.GET)
 	public String showMiniatureOprion(@PathVariable String miniature_id, ModelMap model) {
 
-		
 		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
+		
+		Order  currentOrder = orderService.findCurrentOrder(user.getId());
 
 		Miniature chosenMiniature = miniatureService.findMiniatureById(Integer.parseInt(miniature_id));
 		model.addAttribute("miniature", chosenMiniature);
-		
-		
+
 		OrderDetails orderDetails = new OrderDetails();
+		orderDetails.setOrderId(currentOrder.getOrder_id());
 		model.addAttribute("orderDetails", orderDetails);
 		model.addAttribute("edit", false);
 
 		return "makeOrderStage5";
 	}
-	
+
 	@RequestMapping(value = { "/stage5-{miniature_id}" }, method = RequestMethod.POST)
 	public String showMiniatureOprion(@Valid OrderDetails orderDetails, BindingResult result, ModelMap model) {
-System.out.println("IN POST STAGE5");
-System.out.println(orderDetails);
-		
 		if (result.hasErrors()) {
 			return "makeOrder";
 		}
-	
-        int miniatureId = orderDetails.getMiniatureId();
-        Miniature miniature = miniatureService.findMiniatureById(miniatureId);
+
+		int miniatureId = orderDetails.getMiniatureId();
+		Miniature miniature = miniatureService.findMiniatureById(miniatureId);
 		orderDetailsService.saveOrderDetails(orderDetails);
-		
-		model.addAttribute("factionId",miniature.getFactionId());
-		model.addAttribute("success",
-				orderDetails.getMinisQuantity()+" " + miniature.getMiniatureName() +"/s" + " added to your chart successfully");
+
+		model.addAttribute("factionId", miniature.getFactionId());
+		model.addAttribute("success", orderDetails.getMinisQuantity() + " " + miniature.getMiniatureName() + "/s" + " added to your chart successfully");
 		return "addToChartSuccess";
 	}
-	
-	
-	
+
 	@RequestMapping(value = { "/chart" }, method = RequestMethod.GET)
-	public String showChart( ModelMap model) {
+	public String showChart(ModelMap model) {
 
-		
-	
-
+		User user = userService.findBySSO(getPrincipal());
+		model.addAttribute("loggedinuser", user);	
+		Order currentOrder = orderService.findCurrentOrder(user.getId());
+		if (currentOrder!=null) {
+		List<OrderDetails> miniaturesDetailsToOrder = orderDetailsService.findAllOrderDetailsByOrder(currentOrder.getOrder_id());
+		Map<OrderDetails, String> orderedMiniatures = new HashMap<>();
+		for (Iterator iterator = miniaturesDetailsToOrder.iterator(); iterator.hasNext();) {
+			OrderDetails detail = (OrderDetails) iterator.next();
+			orderedMiniatures.put(detail, (miniatureService.findMiniatureById(((OrderDetails) detail).getMiniatureId())).getMiniatureName());
+		}
+		System.out.println(orderedMiniatures.size()+"//////////////////////////////////////////////////");
+		model.addAttribute("orderedMiniatures", orderedMiniatures);
+		model.addAttribute("orderNumber", currentOrder.getOrder_id());
+		}		
 		return "chart";
+	}
+
+	@RequestMapping(value = { "/completeOrder-{order_id}" }, method = RequestMethod.GET)
+	public String completeOrder(@PathVariable String order_id, ModelMap model) {
+		
+		System.out.println(Integer.parseInt(order_id)+"//////////////////////////////////////////////////");
+
+		Order completeOrder = orderService.findOrderById(Integer.parseInt(order_id));
+		completeOrder.setOrderStatus("CONF");
+		System.out.println("//////////////////////////////////////////////////");
+		System.out.println(completeOrder);
+		orderService.updateOrder(completeOrder);
+		model.addAttribute("success", " Order confirmed! Your painter is preparing for work");
+		return "orderComplete";
 	}
 
 	private String getPrincipal() {

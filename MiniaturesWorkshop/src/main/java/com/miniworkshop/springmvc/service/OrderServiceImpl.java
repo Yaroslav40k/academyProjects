@@ -65,4 +65,10 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 
+	@Override
+	public Order findCurrentOrder(int customerID) {
+		
+		return dao.findCurrentOrder(customerID);
+	}
+
 }

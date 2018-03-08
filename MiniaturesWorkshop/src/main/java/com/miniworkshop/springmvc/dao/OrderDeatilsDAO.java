@@ -16,8 +16,6 @@ public interface OrderDeatilsDAO {
 
 	List<OrderDetails> findAllOrderDetails();
 
-	List<OrderDetails> findAllOrderDetailsByChart(int chartId);
-
 	List<OrderDetails> findAllOrderDetailsByOrder(int orderId);
 
 }

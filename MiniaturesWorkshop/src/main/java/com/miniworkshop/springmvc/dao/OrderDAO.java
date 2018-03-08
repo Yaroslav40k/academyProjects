@@ -8,6 +8,8 @@ import com.miniworkshop.springmvc.model.Order;
 public interface OrderDAO {
 	
 	Order findOrderById(int orderId);
+	
+	Order findCurrentOrder(int customerID);
 
 	void saveOrder(Order order);
 

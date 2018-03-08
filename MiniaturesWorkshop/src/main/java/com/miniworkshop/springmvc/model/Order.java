@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,27 +19,23 @@ public class Order {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int order_id;
 	
-	@NotEmpty
+	@NotNull 
 	@Column(name="customer_id", nullable=false)
 	private int customerId;
 	
-	@NotEmpty
+	@NotNull 
 	@Column(name="painter_id", nullable=false)
 	private int painterId;
 		
-	@NotEmpty
 	@Column(name="order_date ", nullable=false)
 	private Timestamp orderDate ;
 
-	@NotEmpty
 	@Column(name="required_date", nullable=false)
 	private Timestamp requiredDate;
 
-	@NotEmpty
 	@Column(name="finished_date ", nullable=false)
 	private Timestamp finishedDate ;
 	
-	@NotEmpty
 	@Column(name="ship_adress_id", nullable=false)
 	private int shipadressId;
 	

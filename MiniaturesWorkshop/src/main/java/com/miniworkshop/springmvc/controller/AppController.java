@@ -69,7 +69,7 @@ public class AppController {
 	 * This method will list all existing users.
 	 */
 	@RequestMapping(value = { "/makeOrder" }, method = RequestMethod.GET)
-	public String showIndex(ModelMap model) {
+	public String showMakeOrder(ModelMap model) {
 		
 		List<String> someList = new LinkedList<String>();
 		Miniature spaceMarine  = miniatureService.findMiniatureById(1);
@@ -81,13 +81,49 @@ public class AppController {
 		
 		User user = userService.findBySSO(getPrincipal());	
 		model.addAttribute("loggedinuser", user);
-		return "makeOrder";
+		return "makeOrderS";
+	}
+	
+	@RequestMapping(value = { "/aboutMe" }, method = RequestMethod.GET)
+	public String showAboutMe(ModelMap model) {
+		
+		List<String> someList = new LinkedList<String>();
+		Miniature spaceMarine  = miniatureService.findMiniatureById(1);
+		List<Miniature> spaceMarines = new  ArrayList<Miniature>();
+		spaceMarines.add(spaceMarine);
+		System.out.println(spaceMarine);
+		model.addAttribute("spaceMarines", spaceMarines);
+		
+		
+		User user = userService.findBySSO(getPrincipal());	
+		model.addAttribute("loggedinuser", user);
+		return "aboutMe";
+	}
+	
+	
+	@RequestMapping(value = { "/contacts" }, method = RequestMethod.GET)
+	public String showContacts(ModelMap model) {
+		
+		
+		User user = userService.findBySSO(getPrincipal());	
+		model.addAttribute("loggedinuser", user);
+		return "contacts";
+	}
+	
+	@RequestMapping(value = { "/paymentTransport" }, method = RequestMethod.GET)
+	public String showPaymentAndTransport(ModelMap model) {
+		
+		
+		User user = userService.findBySSO(getPrincipal());	
+		model.addAttribute("loggedinuser", user);
+		return "paymentTransport";
 	}
 	
 	
 	@RequestMapping(value = {"/", "/home" }, method = RequestMethod.GET)
 	public String showHome(ModelMap model) {
-
+		User user = userService.findBySSO(getPrincipal());	
+		model.addAttribute("loggedinuser", user);
 		return "home";
 	}
 	
@@ -219,11 +255,13 @@ public class AppController {
 	 * tries to goto login page again, will be redirected to list page.
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
+	public String loginPage(ModelMap model) {
 		if (isCurrentAuthenticationAnonymous()) {
 			return "login";
-		} else {
-			return "redirect:/list";
+		} else {			
+			User user = userService.findBySSO(getPrincipal());
+			model.addAttribute("loggedinuser", user);
+			return "home";
 		}
 	}
 
@@ -239,7 +277,7 @@ public class AppController {
 			persistentTokenBasedRememberMeServices.logout(request, response, auth);
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "redirect:/home";
+		return "home";
 	}
 
 	/**

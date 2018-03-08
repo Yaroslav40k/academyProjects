@@ -73,4 +73,14 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		return orders;
 	}
 
+	@Override
+	public Order findCurrentOrder(int customerID) {
+		
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("customerId", customerID));
+		criteria.add(Restrictions.eq("orderStatus", "CREATING"));
+		Order currentOrder = (Order) criteria.uniqueResult();
+		return currentOrder;
+	}
+
 }

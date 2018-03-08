@@ -11,52 +11,41 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="order_details")
+@Table(name = "order_details")
 
 public class OrderDetails {
-	
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer order_detail_id;
-	
+
 	@NotNull
-	@Column(name="order_id", nullable=false)
+	@Column(name = "order_id", nullable = false)
 	private Integer orderId;
-	
+
 	@NotNull
-	@Column(name="chart_id", nullable=false)
-	private Integer chartId;
-		
-	@NotNull
-	@Column(name="miniature_id", nullable=false)
+	@Column(name = "miniature_id", nullable = false)
 	private Integer miniatureId;
 
-
-	@Column(name="minis_quantity", nullable=false)
+	@Column(name = "minis_quantity", nullable = false)
 	private String minisQuantity;
 
-
-	@Column(name="minis_avg_price", nullable=false)
+	@Column(name = "minis_avg_price", nullable = false)
 	private Double minisAvgPrice;
-	
 
-	@Column(name="minis_color_scheme", nullable=false)
+	@Column(name = "minis_color_scheme", nullable = false)
 	private String minisColorScheme;
-	
 
-	@Column(name="minis_base_scheme", nullable=false)
+	@Column(name = "minis_base_scheme", nullable = false)
 	private String minisBaseScheme;
-	
 
-	@Column(name="minis_inventory ", nullable=false)
-	private String minisInventory ;
-	
+	@Column(name = "minis_inventory ", nullable = false)
+	private String minisInventory;
 
-	@Column(name="minis_inventory_op", nullable=false)
+	@Column(name = "minis_inventory_op", nullable = false)
 	private String minisInventoryOp;
-	
 
-	@Column(name="minis_add_details", nullable=false)
+	@Column(name = "minis_add_details", nullable = false)
 	private String minisAddDetails;
 
 	public Integer getOrder_detail_id() {
@@ -73,14 +62,6 @@ public class OrderDetails {
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
-	}
-
-	public Integer getChartId() {
-		return chartId;
-	}
-
-	public void setChartId(Integer chartId) {
-		this.chartId = chartId;
 	}
 
 	public Integer getMiniatureId() {
@@ -151,7 +132,6 @@ public class OrderDetails {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((chartId == null) ? 0 : chartId.hashCode());
 		result = prime * result + ((miniatureId == null) ? 0 : miniatureId.hashCode());
 		result = prime * result + ((minisAddDetails == null) ? 0 : minisAddDetails.hashCode());
 		result = prime * result + ((minisAvgPrice == null) ? 0 : minisAvgPrice.hashCode());
@@ -174,11 +154,6 @@ public class OrderDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderDetails other = (OrderDetails) obj;
-		if (chartId == null) {
-			if (other.chartId != null)
-				return false;
-		} else if (!chartId.equals(other.chartId))
-			return false;
 		if (miniatureId == null) {
 			if (other.miniatureId != null)
 				return false;
@@ -234,12 +209,9 @@ public class OrderDetails {
 
 	@Override
 	public String toString() {
-		return "OrderDetails [order_detail_id=" + order_detail_id + ", orderId=" + orderId + ", chartId=" + chartId
-				+ ", miniatureId=" + miniatureId + ", minisQuantity=" + minisQuantity + ", minisAvgPrice="
-				+ minisAvgPrice + ", minisColorScheme=" + minisColorScheme + ", minisBaseScheme=" + minisBaseScheme
-				+ ", minisInventory=" + minisInventory + ", minisInventoryOp=" + minisInventoryOp + ", minisAddDetails="
-				+ minisAddDetails + "]";
+		return "OrderDetails [order_detail_id=" + order_detail_id + ", orderId=" + orderId + ", miniatureId=" + miniatureId + ", minisQuantity=" + minisQuantity + ", minisAvgPrice=" + minisAvgPrice
+				+ ", minisColorScheme=" + minisColorScheme + ", minisBaseScheme=" + minisBaseScheme + ", minisInventory=" + minisInventory + ", minisInventoryOp=" + minisInventoryOp
+				+ ", minisAddDetails=" + minisAddDetails + "]";
 	}
 
-	
 }
