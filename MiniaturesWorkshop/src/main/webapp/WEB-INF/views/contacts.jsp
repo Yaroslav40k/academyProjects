@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
@@ -48,35 +48,37 @@ body {
 			<div id="map" style="width: 100%; height: 400px; border-radius: 20px; padding-bottom: 50px;"></div>
 		</div>
 
-		
+
 		<div class="row">
-		<p style="color: white;">
-		Find me also at: <br>
-		Facebook: /artist.yaroslav <br>
-		Instagram: /artist.yaroslav<br>
-		VK: /yar_soldat<br>
-		e-mail: 1dmitriev.yaroslav1@gmail.com<br>
-		</p>
+		<div class="col-xs-12 col-md-12 col-centered text-center">
+				<h2 class="form-signin-heading" style="color: white; font-family: Perpetua Titling MT;">Find me also at</h2>
+			</div>
+			<p style="color: white;">
+				<br> Facebook: /artist.yaroslav <br> Instagram: /artist.yaroslav<br> VK: /yar_soldat<br> e-mail: 1dmitriev.yaroslav1@gmail.com<br>
+			</p>
 		</div>
 
 		<div class="row">
-			<form action="MailSender" method="get">
-				<div class="row">
+		<div class="col-xs-12 col-md-12 col-centered text-center">
+				<h2 class="form-signin-heading" style="color: white; font-family: Perpetua Titling MT;">Contact me via this form</h2>
+			</div>
+			<form action="MailSender" method="get" style="width: 100%">
+				<div class="row" style="width: 100%">
 					<fieldset class="form-group col-sm-6">
-						<input required='required_field' id="name" type="text" name="name" placeholder="Name">
+						<input required='required_field' id="name" type="text" name="name" placeholder="Name" style="width: 100%; margin-left: 0em; margin-right: auto;">
 					</fieldset>
 					<fieldset class="form-group col-sm-6">
-						<input required='required_field' type="email" name="email" id="email" placeholder="Email">
-					</fieldset>
-				</div>
-				<div class="row">
-					<fieldset class="form-group col-sm-6">
-						<input required='required_field' type="text" name="subject" id="subject" placeholder="Subject">
+						<input required='required_field' type="email" name="email" id="email" placeholder="Email" style="width: 100%; margin-left: auto; margin-right: 0em;">
 					</fieldset>
 				</div>
 				<div class="row">
 					<fieldset class="form-group col-sm-12">
-						<textarea required='required_field' name="message" id="message" placeholder="Message"></textarea>
+						<input required='required_field' type="text" name="subject" id="subject" placeholder="Subject" style="width: 100%">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group col-sm-12">
+						<textarea required='required_field' name="message" id="message" placeholder="Message" style="width: 100%"></textarea>
 					</fieldset>
 				</div>
 				<fieldset class="col-md-12">

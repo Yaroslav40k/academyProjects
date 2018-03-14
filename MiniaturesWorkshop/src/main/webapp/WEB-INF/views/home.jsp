@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
@@ -21,22 +21,20 @@
 	margin-bottom: 300px;
 }
 
-
 .container {
 	margin-top: 30px;
 	background-color: rgba(0, 0, 0, 0.5);
 }
-
 </style>
 </head>
 <body>
-<%@include file="navPanel.jsp"%>
+	<%@include file="navPanel.jsp"%>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-md-6">
+			<div class="col-xs-12 col-md-12">
 				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work1.jpg" class="media" alt="" />
+					<img src="<%=request.getContextPath()%>/static/images/testMainPageImage1.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Infantry gallery</h2>
 						<p>Words and such, a whole lot more of muh flippin' words.</p>
@@ -44,55 +42,23 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work2.jpg" class="media" alt="" />
-					<div class="mask">
-						<h2>Mounted gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
-					</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="view">
+					<a  href="<c:url value='/aboutMe'/>"><img src="<%=request.getContextPath()%>/static/images/AboutMe.jpg" class="media" alt="" /> 
+					</a>
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work3.jpg" class="media" alt="" />
-					<div class="mask">
-						<h2>Vehicles gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
-					</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="view">
+					<a  href="<c:url value='/orders/stage1'/>"><img src="<%=request.getContextPath()%>/static/images/StartArmyLogo.jpg" class="media" alt="" /> 
+					</a>
 				</div>
 			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work4.jpg" class="media" alt="" />
-					<div class="mask">
-						<h2>Monsters gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
-					</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="view">
+					<a  href="<c:url value='/galleryMain'/>"><img src="<%=request.getContextPath()%>/static/images/GalleryLogo.jpg" class="media" alt="" /> 
+					</a>
 				</div>
-			</div>
-
-			<div class="col-xs-12 col-md-6">
-				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work5.jpg" class="media" alt="" />
-					<div class="mask">
-						<h2>Very big miniatures gallary</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="view view-help">
-					<img src="<%=request.getContextPath()%>/static/images/work6.jpg" class="media" alt="" />
-					<div class="mask">
-						<h2>Armies gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
-					</div>
 				</div>
 			</div>
 		</div>

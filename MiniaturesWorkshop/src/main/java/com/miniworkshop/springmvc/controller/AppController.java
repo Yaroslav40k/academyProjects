@@ -1,9 +1,11 @@
 package com.miniworkshop.springmvc.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,26 +65,7 @@ public class AppController {
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 
-	
 
-	/**
-	 * This method will list all existing users.
-	 */
-	@RequestMapping(value = { "/makeOrder" }, method = RequestMethod.GET)
-	public String showMakeOrder(ModelMap model) {
-		
-		List<String> someList = new LinkedList<String>();
-		Miniature spaceMarine  = miniatureService.findMiniatureById(1);
-		List<Miniature> spaceMarines = new  ArrayList<Miniature>();
-		spaceMarines.add(spaceMarine);
-		System.out.println(spaceMarine);
-		model.addAttribute("spaceMarines", spaceMarines);
-		
-		
-		User user = userService.findBySSO(getPrincipal());	
-		model.addAttribute("loggedinuser", user);
-		return "makeOrderS";
-	}
 	
 	@RequestMapping(value = { "/aboutMe" }, method = RequestMethod.GET)
 	public String showAboutMe(ModelMap model) {
@@ -110,13 +93,22 @@ public class AppController {
 		return "contacts";
 	}
 	
-	@RequestMapping(value = { "/paymentTransport" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/galleryMain" }, method = RequestMethod.GET)
+	public String showgalleryMain(ModelMap model) {
+		
+		
+		User user = userService.findBySSO(getPrincipal());	
+		model.addAttribute("loggedinuser", user);
+		return "galleryMain";
+	}
+	
+	@RequestMapping(value = { "/paymentDelivery" }, method = RequestMethod.GET)
 	public String showPaymentAndTransport(ModelMap model) {
 		
 		
 		User user = userService.findBySSO(getPrincipal());	
 		model.addAttribute("loggedinuser", user);
-		return "paymentTransport";
+		return "paymentDelivery";
 	}
 	
 	
@@ -143,7 +135,7 @@ public class AppController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
+		
 		return "registration";
 	}
 
@@ -153,12 +145,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
 	public String saveUser(@Valid User user, BindingResult result, ModelMap model) {
-		
-		System.out.println(user);
 
-		if (result.hasErrors()) {
-			return "registration";
-		}
 
 		/*
 		 * Preferred way to achieve uniqueness of field [sso] should be implementing
@@ -177,11 +164,16 @@ public class AppController {
 			return "registration";
 		}
 
+		if(user.getUserProfiles().size()<1) {
+			Set<UserProfile> userProfiles =  new HashSet<UserProfile>();
+			userProfiles.add(userProfileService.findByType("USER"));
+			user.setUserProfiles(userProfiles);
+		}
 		userService.saveUser(user);
 
 		model.addAttribute("success",
 				"User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
-		return "registrationsuccess";
+		return "SuccessWindow";
 	}
 
 	/**
@@ -221,7 +213,7 @@ public class AppController {
 		model.addAttribute("success",
 				"User " + user.getFirstName() + " " + user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registrationsuccess";
+		return "SuccessWindow";
 	}
 
 	/**
@@ -236,8 +228,17 @@ public class AppController {
 	/**
 	 * This method will provide UserProfile list to views
 	 */
+	@ModelAttribute("role")
+	public UserProfile initializeProfile() {
+		System.out.println("IN USERPROF INIT");
+		return userProfileService.findByType("USER");
+	}
+	/**
+	 * This method will provide UserProfiles list to views
+	 */
 	@ModelAttribute("roles")
 	public List<UserProfile> initializeProfiles() {
+		System.out.println("IN USERPROFS INIT");
 		return userProfileService.findAll();
 	}
 

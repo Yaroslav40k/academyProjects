@@ -33,25 +33,25 @@ public class MailSender extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String customerName =request.getParameter("name");
-		String customerEmailSubject =request.getParameter("subject");
-		String customerMessage = request.getParameter("message");
-		String customerEmail = request.getParameter("email");
+		final String customerName =request.getParameter("name");
+		final String customerEmailSubject =request.getParameter("subject");
+		final String customerMessage = request.getParameter("message");
+		final String customerEmail = request.getParameter("email");
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				Date date = new Date();
-				final String adminEmail = "1dmitriev.yaroslav1@gmail.com";
-				final String password = "Sunnyboy";
+				final String adminEmail = "artist.yaroslav@gmail.com";
+				final String password = "Sunnyboy27artist.yaroslav";
 
 				Session session = EmailUtil.createSession(adminEmail, password);
 				EmailUtil.sendMessage(session,customerName, customerEmail,adminEmail, customerEmailSubject, customerMessage);
 				Date date2 = new Date();
 				System.out.println("Time spent: " + (date2.getTime() - date.getTime()));
-
 			}
-		}).start();
+		}).start();	
+		request.getRequestDispatcher("/home").forward(request, response);
 	}
 
 	/**
@@ -60,10 +60,10 @@ public class MailSender extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String customerName =request.getParameter("name");
-		String customerEmailSubject =request.getParameter("subject");
-		String customerMessage = request.getParameter("message");
-		String customerEmail = request.getParameter("email");
+		final String customerName =request.getParameter("name");
+		final String customerEmailSubject =request.getParameter("subject");
+		final String customerMessage = request.getParameter("message");
+		final String customerEmail = request.getParameter("email");
 
 		System.out.println("Thread is trying");
 		new Thread(new Runnable() {
@@ -71,8 +71,8 @@ public class MailSender extends HttpServlet {
 			@Override
 			public void run() {
 				Date date = new Date();
-				final String adminEmail = "1dmitriev.yaroslav1@gmail.com";
-				final String password = "Sunnyboy";
+				final String adminEmail = "artist.yaroslav@gmail.com";
+				final String password = "Sunnyboy27artist.yaroslav";
 
 				Session session = EmailUtil.createSession(adminEmail, password);
 				EmailUtil.sendMessage(session,customerName, customerEmail,adminEmail, customerEmailSubject, customerMessage);

@@ -141,12 +141,12 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>SpringMVCHibernateWithSpringSecurityExample</warName>
+						<warName>MiniaturesWorkshop</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>SpringMVCHibernateWithSpringSecurityExample</finalName>
+		<finalName>MiniaturesWorkshop</finalName>
 	</build>
 </project>

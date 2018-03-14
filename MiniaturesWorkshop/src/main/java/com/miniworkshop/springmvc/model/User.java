@@ -140,12 +140,11 @@ public class User implements Serializable{
 
 	/*
 	 * DO-NOT-INCLUDE passwords in toString function.
-	 * It is done here just for convenience purpose.
+	 * It was done here just for convenience purpose.
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
+		return "User [id=" + id + ", ssoId=" + ssoId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + "]";
 	}
 

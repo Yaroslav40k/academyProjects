@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <title>Artist.Yaroslav Miniatures</title>
-<meta charset="utf-8">
 <meta name="author" content="pixelhint.com">
 <meta name="description" content="Miniatures gallery and workshop of Yaroslav Dmitriev" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
@@ -48,26 +47,31 @@ body {
 	<!--  Menu options -->
 	<div class="collapse navbar-collapse" id="navbar1">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="<c:url value='/orders/stage1'/>">Make Order<span class="sr-only">(current)</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/paymentTransport'/>">Payment and Transport</a></li>
+			<li class="nav-item active"><a class="nav-link" href="<c:url value='/orders/stage1'/>">Make Your Order<span class="sr-only">(current)</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/paymentDelivery'/>">Payment and Delivery</a></li>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/galleryMain'/>">Gallery</a></li>
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/aboutMe'/>">About me</a></li>
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/contacts'/>">Contacts</a></li>
-			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account control</a>
+			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
+					control</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
 
 					<c:if test="${empty loggedinuser.firstName}">
 						<a class="dropdown-item" href="<c:url value='/login'/>">Login</a>
+						<a class="dropdown-item" href="<c:url value='/newuser'/>">Registration</a>
 					</c:if>
 					<c:if test="${not empty loggedinuser.firstName}">
 						<h6 style="padding-left: 20px">
 							<strong>Hello ${loggedinuser.firstName}</strong>!
 						</h6>
 						<a class="dropdown-item" href="#">Account info</a>
-						
+
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
-						<a class="dropdown-item" href="SuccessWindow.jsp">Success Window</a>
-						<a class="dropdown-item" href="registration.jsp">Registration</a>
+						<sec:authorize access="hasRole('ADMIN')">
+							<a class="dropdown-item" href="<c:url value='/newuser'/>">Administration</a>
+						</sec:authorize>
+						<a class="dropdown-item" href="<c:url value='/successWindow'/>">Success Window</a>
 					</c:if>
 				</div></li>
 		</ul>

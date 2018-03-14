@@ -16,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -36,15 +39,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/home","/","/newuser").permitAll()
-				.antMatchers("/makeOrder", "/list")
-				.access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')")
-				.antMatchers("/show-phones", "/show-phone-*").access("hasRole('MANAGER')").antMatchers("/edit-user-*")
-				.access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login")
-				.loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password").and()
-				.rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-				.tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+		CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.
+        addFilterBefore(filter,CsrfFilter.class);
+		http
+		.authorizeRequests()
+			.antMatchers("/home", "/login", "/newuser", "/paymentTransport", "/aboutMe", "/contacts")
+			.permitAll()
+			.antMatchers("/orders/stage1", "/orders/stage2", "/orders/stage3", "/orders/stage4", "/orders/stage5", "/orders/chart")
+			.access("hasRole('USER') or hasRole('ADMIN')")
+			.and()
+			.formLogin()
+			.loginPage("/login")
+			.loginProcessingUrl("/login")
+			.usernameParameter("ssoId")
+			.passwordParameter("password")
+			.and().rememberMe()
+			.rememberMeParameter("remember-me")
+			.tokenRepository(tokenRepository)
+			.tokenValiditySeconds(86400)
+			.and()
+			.csrf()
+			.and()
+			.exceptionHandling()
+			.accessDeniedPage("/Access_Denied");
 	}
 
 	@Bean
@@ -62,8 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-		PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices(
-				"remember-me", userDetailsService, tokenRepository);
+		PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
 		return tokenBasedservice;
 	}
 

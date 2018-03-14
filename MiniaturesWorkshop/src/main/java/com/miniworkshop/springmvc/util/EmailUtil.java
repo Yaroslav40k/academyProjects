@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -27,14 +28,14 @@ public class EmailUtil {
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
 		
-		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+		final PasswordAuthentication passwordAuthentication = new PasswordAuthentication(fromUserId, password );
+		Authenticator authenticator = new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(fromUserId, password); // Existing
-																			// gmail
-																			// Account
-			}
-		});
+				return passwordAuthentication;
+				}
+		};
+		Session session = Session.getInstance(properties,authenticator);
 		
 		return session;
 		

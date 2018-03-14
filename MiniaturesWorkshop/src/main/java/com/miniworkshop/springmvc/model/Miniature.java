@@ -52,16 +52,16 @@ public class Miniature implements Serializable {
 	private Double miniatureHighPrice;
 	
 	@NotEmpty
-	@Column(name="miniature_low_pt_d", nullable=false)
-	private Integer miniatureLowPD;
+	@Column(name="miniature_low_pt_h", nullable=false)
+	private Integer miniatureLowPH;
 	
 	@NotEmpty
-	@Column(name="miniature_mid_pt_d", nullable=false)
-	private Integer miniatureMidPD;
+	@Column(name="miniature_mid_pt_h", nullable=false)
+	private Integer miniatureMidPH;
 	
 	@NotEmpty
-	@Column(name="miniature_high_pt_d", nullable=false)
-	private Integer miniatureHighPD;
+	@Column(name="miniature_high_pt_h", nullable=false)
+	private Integer miniatureHighPH;
 	
 	@NotEmpty
 	@Column(name="miniature_painting_count", nullable=false)
@@ -139,28 +139,28 @@ public class Miniature implements Serializable {
 		this.miniatureHighPrice = miniatureHighPrice;
 	}
 
-	public Integer getMiniatureLowPD() {
-		return miniatureLowPD;
+	public Integer getMiniatureLowPH() {
+		return miniatureLowPH;
 	}
 
-	public void setMiniatureLowPD(Integer miniatureLowPD) {
-		this.miniatureLowPD = miniatureLowPD;
+	public void setMiniatureLowPH(Integer miniatureLowPH) {
+		this.miniatureLowPH = miniatureLowPH;
 	}
 
-	public Integer getMiniatureMidPD() {
-		return miniatureMidPD;
+	public Integer getMiniatureMidPH() {
+		return miniatureMidPH;
 	}
 
-	public void setMiniatureMidPD(Integer miniatureMidPD) {
-		this.miniatureMidPD = miniatureMidPD;
+	public void setMiniatureMidPH(Integer miniatureMidPH) {
+		this.miniatureMidPH = miniatureMidPH;
 	}
 
-	public Integer getMiniatureHighPD() {
-		return miniatureHighPD;
+	public Integer getMiniatureHighPH() {
+		return miniatureHighPH;
 	}
 
-	public void setMiniatureHighPD(Integer miniatureHighPD) {
-		this.miniatureHighPD = miniatureHighPD;
+	public void setMiniatureHighPH(Integer miniatureHighPH) {
+		this.miniatureHighPH = miniatureHighPH;
 	}
 
 	public Integer getMiniaturePaintingCount() {
@@ -177,11 +177,11 @@ public class Miniature implements Serializable {
 		int result = 1;
 		result = prime * result + ((factionId == null) ? 0 : factionId.hashCode());
 		result = prime * result + ((miniatureBaseId == null) ? 0 : miniatureBaseId.hashCode());
-		result = prime * result + ((miniatureHighPD == null) ? 0 : miniatureHighPD.hashCode());
+		result = prime * result + ((miniatureHighPH == null) ? 0 : miniatureHighPH.hashCode());
 		result = prime * result + ((miniatureHighPrice == null) ? 0 : miniatureHighPrice.hashCode());
-		result = prime * result + ((miniatureLowPD == null) ? 0 : miniatureLowPD.hashCode());
+		result = prime * result + ((miniatureLowPH == null) ? 0 : miniatureLowPH.hashCode());
 		result = prime * result + ((miniatureLowPrice == null) ? 0 : miniatureLowPrice.hashCode());
-		result = prime * result + ((miniatureMidPD == null) ? 0 : miniatureMidPD.hashCode());
+		result = prime * result + ((miniatureMidPH == null) ? 0 : miniatureMidPH.hashCode());
 		result = prime * result + ((miniatureMidPrice == null) ? 0 : miniatureMidPrice.hashCode());
 		result = prime * result + ((miniatureName == null) ? 0 : miniatureName.hashCode());
 		result = prime * result + ((miniaturePaintingCount == null) ? 0 : miniaturePaintingCount.hashCode());
@@ -210,30 +210,30 @@ public class Miniature implements Serializable {
 				return false;
 		} else if (!miniatureBaseId.equals(other.miniatureBaseId))
 			return false;
-		if (miniatureHighPD == null) {
-			if (other.miniatureHighPD != null)
+		if (miniatureHighPH == null) {
+			if (other.miniatureHighPH != null)
 				return false;
-		} else if (!miniatureHighPD.equals(other.miniatureHighPD))
+		} else if (!miniatureHighPH.equals(other.miniatureHighPH))
 			return false;
 		if (miniatureHighPrice == null) {
 			if (other.miniatureHighPrice != null)
 				return false;
 		} else if (!miniatureHighPrice.equals(other.miniatureHighPrice))
 			return false;
-		if (miniatureLowPD == null) {
-			if (other.miniatureLowPD != null)
+		if (miniatureLowPH == null) {
+			if (other.miniatureLowPH != null)
 				return false;
-		} else if (!miniatureLowPD.equals(other.miniatureLowPD))
+		} else if (!miniatureLowPH.equals(other.miniatureLowPH))
 			return false;
 		if (miniatureLowPrice == null) {
 			if (other.miniatureLowPrice != null)
 				return false;
 		} else if (!miniatureLowPrice.equals(other.miniatureLowPrice))
 			return false;
-		if (miniatureMidPD == null) {
-			if (other.miniatureMidPD != null)
+		if (miniatureMidPH == null) {
+			if (other.miniatureMidPH != null)
 				return false;
-		} else if (!miniatureMidPD.equals(other.miniatureMidPD))
+		} else if (!miniatureMidPH.equals(other.miniatureMidPH))
 			return false;
 		if (miniatureMidPrice == null) {
 			if (other.miniatureMidPrice != null)
@@ -270,13 +270,12 @@ public class Miniature implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Miniature [miniature_id=" + miniature_id + ", factionId=" + factionId + ", miniatureName="
-				+ miniatureName + ", miniatureType=" + miniatureType + ", miniatureSize=" + miniatureSize
-				+ ", miniatureBaseId=" + miniatureBaseId + ", miniatureLowPrice=" + miniatureLowPrice
-				+ ", miniatureMidPrice=" + miniatureMidPrice + ", miniatureHighPrice=" + miniatureHighPrice
-				+ ", miniatureLowPD=" + miniatureLowPD + ", miniatureMidPD=" + miniatureMidPD + ", miniatureHighPD="
-				+ miniatureHighPD + ", miniaturePaintingCount=" + miniaturePaintingCount + "]";
+		return "Miniature [miniature_id=" + miniature_id + ", factionId=" + factionId + ", miniatureName=" + miniatureName + ", miniatureType=" + miniatureType + ", miniatureSize=" + miniatureSize
+				+ ", miniatureBaseId=" + miniatureBaseId + ", miniatureLowPrice=" + miniatureLowPrice + ", miniatureMidPrice=" + miniatureMidPrice + ", miniatureHighPrice=" + miniatureHighPrice
+				+ ", miniatureLowPH=" + miniatureLowPH + ", miniatureMidPH=" + miniatureMidPH + ", miniatureHighPH=" + miniatureHighPH + ", miniaturePaintingCount=" + miniaturePaintingCount + "]";
 	}
+
+
 
 	
 }

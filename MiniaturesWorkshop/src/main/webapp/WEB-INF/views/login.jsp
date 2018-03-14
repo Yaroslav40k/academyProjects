@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
@@ -56,8 +56,8 @@ body {
 				</div>
 			</c:if>
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<label for="inputEmail" class="sr-only">Nick name</label> <input type="text" class="form-control" id="username" name="ssoId" placeholder="Enter Username" required autofocus> <label
-				for="inputPassword" class="sr-only">Password</label> <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+			<label for="inputEmail" class="sr-only">Nick name</label> <input type="text" class="form-control" id="username" name="ssoId" placeholder="Enter Username" style="margin-bottom: 20px" required autofocus> 
+			<label for="inputPassword" class="sr-only">Password</label> <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
 			<div class="checkbox">
 				<label> <input type="checkbox" id="rememberme" name="remember-me"> Remember me
 				</label>
@@ -65,9 +65,10 @@ body {
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button class="btn btn-lg btn-primary btn-block  btn-outline-info my-2 my-sm-0" type="submit">Sign in</button>
 		</form>
-		<a href="<c:url value='newuser' />"> <input type="button" class="btn btn-lg btn-primary btn-block  btn-outline-info my-2 my-sm-0" value="Registration">
-		</a>
-
+		<div style="padding-bottom: 20px">
+			<a href="<c:url value='newuser'/>"> <input type="button" class="btn btn-lg btn-primary btn-block  btn-outline-info my-2 my-sm-0" value="Registration">
+			</a>
+		</div>
 	</div>
 </body>
 </html>

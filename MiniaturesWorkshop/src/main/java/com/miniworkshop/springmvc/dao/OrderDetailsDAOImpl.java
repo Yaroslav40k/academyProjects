@@ -33,7 +33,7 @@ public class OrderDetailsDAOImpl extends AbstractDao<Integer, OrderDetails> impl
 	@Override
 	public void deleteOrderDetailsById(int orderDeatilsId) {
 		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("orderDetailsId", orderDeatilsId));
+		crit.add(Restrictions.eq("order_detail_id", orderDeatilsId));
 		OrderDetails orderDeatils = (OrderDetails) crit.uniqueResult();
 		delete(orderDeatils);
 		

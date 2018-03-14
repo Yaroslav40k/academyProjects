@@ -24,6 +24,7 @@ import com.miniworkshop.springmvc.converter.RoleToUserProfileConverter;
 public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	
+	
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
 	
