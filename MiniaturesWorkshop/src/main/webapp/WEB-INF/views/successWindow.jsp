@@ -7,6 +7,7 @@
 <meta name="author" content="pixelhint.com">
 <meta name="description" content="Miniatures gallery and workshop of Yaroslav Dmitriev" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+<meta http-equiv="refresh" content="3;url=<%=request.getContextPath()%>${redirectPath}" />
 <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet" type="text/css"></link>
 <link href="<c:url value='/static/css/Custom.css' />" rel="stylesheet" type="text/css"></link>
 

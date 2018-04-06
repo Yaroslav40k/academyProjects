@@ -50,7 +50,7 @@ body {
 					<td>
 						<div class="row">
 							<div class="col-xs-12 col-md-12 col-centered text-center">
-								<h2 class="form-signin-heading" style="color: white; font-family: Perpetua Titling MT;">Who am I?</h2>
+								<h2 class="form-signin-heading" style="color: white; font-family: Perpetua Titling MT;">About me in short</h2>
 							</div>
 							<div class="col-xs-12 col-md-4">
 								<img alt="" style="border-radius: 20px" src="<%=request.getContextPath()%>/static/images/me.jpg">

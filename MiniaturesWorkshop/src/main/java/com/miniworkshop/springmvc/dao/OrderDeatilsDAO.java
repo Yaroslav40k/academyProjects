@@ -3,6 +3,7 @@ package com.miniworkshop.springmvc.dao;
 import java.util.List;
 
 import com.miniworkshop.springmvc.model.OrderDetails;
+import com.miniworkshop.springmvc.model.User;
 
 public interface OrderDeatilsDAO {
 
@@ -17,5 +18,7 @@ public interface OrderDeatilsDAO {
 	List<OrderDetails> findAllOrderDetails();
 
 	List<OrderDetails> findAllOrderDetailsByOrder(int orderId);
+	
+	List<OrderDetails> findAllOrderDetailsByCustomer(User userCustomer);
 
 }

@@ -40,7 +40,7 @@
 					<img src="<%=request.getContextPath()%>/static/images/work1.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Infantry gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
+						<p>Some miniature info here</p>
 						<a href="#" class="info">Would you like to know more?</a>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 					<img src="<%=request.getContextPath()%>/static/images/work2.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Mounted gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
+							<p>Some miniature info here</p>
 						<a href="#" class="info">Would you like to know more?</a>
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 					<img src="<%=request.getContextPath()%>/static/images/work3.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Vehicles gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
+							<p>Some miniature info here</p>
 						<a href="#" class="info">Would you like to know more?</a>
 					</div>
 				</div>
@@ -70,8 +70,8 @@
 					<img src="<%=request.getContextPath()%>/static/images/work4.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Monsters gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
-						<a href="#" class="info">Would you like to know more?</a>
+							<p>Some miniature info here</p>
+						<a href="<c:url value='/monstersGallery'/>" class="info">Would you like to know more?</a>
 					</div>
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 					<img src="<%=request.getContextPath()%>/static/images/work5.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Very big miniatures gallary</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
+							<p>Some miniature info here</p>
 						<a href="#" class="info">Would you like to know more?</a>
 					</div>
 				</div>
@@ -91,7 +91,7 @@
 					<img src="<%=request.getContextPath()%>/static/images/work6.jpg" class="media" alt="" />
 					<div class="mask">
 						<h2>Armies gallery</h2>
-						<p>Words and such, a whole lot more of muh flippin' words.</p>
+							<p>Some miniature info here</p>
 						<a href="#" class="info">Would you like to know more?</a>
 					</div>
 				</div>

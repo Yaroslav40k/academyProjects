@@ -1,10 +1,13 @@
 package com.miniworkshop.springmvc.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +33,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.miniworkshop.springmvc.dao.MiniatureDAOImpl;
 import com.miniworkshop.springmvc.model.Miniature;
+import com.miniworkshop.springmvc.model.Order;
+import com.miniworkshop.springmvc.model.OrderDetails;
 import com.miniworkshop.springmvc.model.Phone;
 import com.miniworkshop.springmvc.model.User;
 import com.miniworkshop.springmvc.model.UserProfile;
 import com.miniworkshop.springmvc.service.MiniatureService;
 import com.miniworkshop.springmvc.service.MiniatureServiceImpl;
+import com.miniworkshop.springmvc.service.OrderDetailsService;
+import com.miniworkshop.springmvc.service.OrderService;
 import com.miniworkshop.springmvc.service.PhoneService;
 import com.miniworkshop.springmvc.service.UserProfileService;
 import com.miniworkshop.springmvc.service.UserService;
@@ -49,9 +56,15 @@ public class AppController {
 
 	@Autowired
 	PhoneService phoneService;
-	
+
 	@Autowired
 	MiniatureService miniatureService;
+
+	@Autowired
+	OrderService orderService;
+
+	@Autowired
+	OrderDetailsService orderDetailsService;
 
 	@Autowired
 	UserProfileService userProfileService;
@@ -65,60 +78,129 @@ public class AppController {
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 
-
-	
 	@RequestMapping(value = { "/aboutMe" }, method = RequestMethod.GET)
 	public String showAboutMe(ModelMap model) {
-		
+
 		List<String> someList = new LinkedList<String>();
-		Miniature spaceMarine  = miniatureService.findMiniatureById(1);
-		List<Miniature> spaceMarines = new  ArrayList<Miniature>();
+		Miniature spaceMarine = miniatureService.findMiniatureById(1);
+		List<Miniature> spaceMarines = new ArrayList<Miniature>();
 		spaceMarines.add(spaceMarine);
 		System.out.println(spaceMarine);
 		model.addAttribute("spaceMarines", spaceMarines);
-		
-		
-		User user = userService.findBySSO(getPrincipal());	
+
+		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 		return "aboutMe";
 	}
 	
 	
+
+	@RequestMapping(value = { "/accountInfo" }, method = RequestMethod.GET)
+	public String showAccountInfo(ModelMap model) {
+
+		User user = userService.findBySSO(getPrincipal());
+
+		List<Order> ordersList = orderService.findOrdersByCustomer(user.getId());
+		List<Order> currentOrdersList = new ArrayList<>();
+		List<Order> finishedOrdersList = new ArrayList<>();
+		List<Order> canceledOrdersList = new ArrayList<>();
+
+		for (Iterator iterator = ordersList.iterator(); iterator.hasNext();) {
+			Order order = (Order) iterator.next();
+			if (order.getOrderStatus().equalsIgnoreCase("FINISHED")) {
+				finishedOrdersList.add(order);
+			} else if (order.getOrderStatus().equalsIgnoreCase("CANCELED")) {
+				canceledOrdersList.add(order);
+			} else {
+				currentOrdersList.add(order);
+			}
+		}
+
+		HashMap<Order, HashMap<OrderDetails, Miniature>> currentOrdersFullInfo = new HashMap<>();
+		for (Iterator iterator = currentOrdersList.iterator(); iterator.hasNext();) {
+			Order order = (Order) iterator.next();
+			HashMap<OrderDetails, Miniature> orderedMiniatures = new HashMap<>();
+			List<OrderDetails> orderDetailsMiniaturesList = orderDetailsService.findAllOrderDetailsByOrder(order.getOrder_id());
+			for (Iterator iterator2 = orderDetailsMiniaturesList.iterator(); iterator2.hasNext();) {
+				OrderDetails orderDetails = (OrderDetails) iterator2.next();
+				orderedMiniatures.put(orderDetails, miniatureService.findMiniatureById(orderDetails.getMiniatureId()));
+			}
+			currentOrdersFullInfo.put(order, orderedMiniatures);
+		}
+		
+		HashMap<Order, HashMap<OrderDetails, Miniature>> finishedOrdersFullInfo = new HashMap<>();
+		for (Iterator iterator = finishedOrdersList.iterator(); iterator.hasNext();) {
+			Order order = (Order) iterator.next();
+			HashMap<OrderDetails, Miniature> orderedMiniatures = new HashMap<>();
+			List<OrderDetails> orderDetailsMiniaturesList = orderDetailsService.findAllOrderDetailsByOrder(order.getOrder_id());
+			for (Iterator iterator2 = orderDetailsMiniaturesList.iterator(); iterator2.hasNext();) {
+				OrderDetails orderDetails = (OrderDetails) iterator2.next();
+				orderedMiniatures.put(orderDetails, miniatureService.findMiniatureById(orderDetails.getMiniatureId()));
+			}
+			finishedOrdersFullInfo.put(order, orderedMiniatures);
+		}
+		
+		
+		HashMap<Order, HashMap<OrderDetails, Miniature>> canceledOrdersFullInfo = new HashMap<>();
+		for (Iterator iterator = canceledOrdersList.iterator(); iterator.hasNext();) {
+			Order order = (Order) iterator.next();
+			HashMap<OrderDetails, Miniature> orderedMiniatures = new HashMap<>();
+			List<OrderDetails> orderDetailsMiniaturesList = orderDetailsService.findAllOrderDetailsByOrder(order.getOrder_id());
+			for (Iterator iterator2 = orderDetailsMiniaturesList.iterator(); iterator2.hasNext();) {
+				OrderDetails orderDetails = (OrderDetails) iterator2.next();
+				orderedMiniatures.put(orderDetails, miniatureService.findMiniatureById(orderDetails.getMiniatureId()));
+			}
+			canceledOrdersFullInfo.put(order, orderedMiniatures);
+		}
+
+		model.addAttribute("currentOrders", currentOrdersFullInfo);
+		model.addAttribute("finishedOrders", finishedOrdersFullInfo);
+		model.addAttribute("canceledOrdersList", canceledOrdersFullInfo);
+
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", user);
+		return "accountInfo";
+	}
+
 	@RequestMapping(value = { "/contacts" }, method = RequestMethod.GET)
 	public String showContacts(ModelMap model) {
-		
-		
-		User user = userService.findBySSO(getPrincipal());	
+
+		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 		return "contacts";
 	}
-	
+
 	@RequestMapping(value = { "/galleryMain" }, method = RequestMethod.GET)
 	public String showgalleryMain(ModelMap model) {
-		
-		
-		User user = userService.findBySSO(getPrincipal());	
+
+		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 		return "galleryMain";
 	}
 	
+	@RequestMapping(value = { "/monstersGallery" }, method = RequestMethod.GET)
+	public String showMonstersGallery(ModelMap model) {
+
+		User user = userService.findBySSO(getPrincipal());
+		model.addAttribute("loggedinuser", user);
+		return "monstersGallery";
+	}
+
 	@RequestMapping(value = { "/paymentDelivery" }, method = RequestMethod.GET)
 	public String showPaymentAndTransport(ModelMap model) {
-		
-		
-		User user = userService.findBySSO(getPrincipal());	
+
+		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 		return "paymentDelivery";
 	}
-	
-	
-	@RequestMapping(value = {"/", "/home" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String showHome(ModelMap model) {
-		User user = userService.findBySSO(getPrincipal());	
+		User user = userService.findBySSO(getPrincipal());
 		model.addAttribute("loggedinuser", user);
 		return "home";
 	}
-	
+
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public String listUsers(ModelMap model) {
 
@@ -135,7 +217,7 @@ public class AppController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
-		
+
 		return "registration";
 	}
 
@@ -145,7 +227,6 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
 	public String saveUser(@Valid User user, BindingResult result, ModelMap model) {
-
 
 		/*
 		 * Preferred way to achieve uniqueness of field [sso] should be implementing
@@ -158,22 +239,20 @@ public class AppController {
 		 * 
 		 */
 		if (!userService.isUserSSOUnique(user.getId(), user.getSsoId())) {
-			FieldError ssoError = new FieldError("user", "ssoId", messageSource.getMessage("non.unique.ssoId",
-					new String[] { user.getSsoId() }, Locale.getDefault()));
+			FieldError ssoError = new FieldError("user", "ssoId", messageSource.getMessage("non.unique.ssoId", new String[] { user.getSsoId() }, Locale.getDefault()));
 			result.addError(ssoError);
 			return "registration";
 		}
 
-		if(user.getUserProfiles().size()<1) {
-			Set<UserProfile> userProfiles =  new HashSet<UserProfile>();
+		if (user.getUserProfiles().size() < 1) {
+			Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 			userProfiles.add(userProfileService.findByType("USER"));
 			user.setUserProfiles(userProfiles);
 		}
 		userService.saveUser(user);
-
-		model.addAttribute("success",
-				"User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
-		return "SuccessWindow";
+		model.addAttribute("redirectPath", "/home");
+		model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+		return "successWindow";
 	}
 
 	/**
@@ -210,8 +289,7 @@ public class AppController {
 
 		userService.updateUser(user);
 
-		model.addAttribute("success",
-				"User " + user.getFirstName() + " " + user.getLastName() + " updated successfully");
+		model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "SuccessWindow";
 	}
@@ -233,6 +311,7 @@ public class AppController {
 		System.out.println("IN USERPROF INIT");
 		return userProfileService.findByType("USER");
 	}
+
 	/**
 	 * This method will provide UserProfiles list to views
 	 */
@@ -259,7 +338,7 @@ public class AppController {
 	public String loginPage(ModelMap model) {
 		if (isCurrentAuthenticationAnonymous()) {
 			return "login";
-		} else {			
+		} else {
 			User user = userService.findBySSO(getPrincipal());
 			model.addAttribute("loggedinuser", user);
 			return "home";

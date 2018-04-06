@@ -47,7 +47,7 @@ body {
 	<!--  Menu options -->
 	<div class="collapse navbar-collapse" id="navbar1">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="<c:url value='/orders/stage1'/>">Make Your Order<span class="sr-only">(current)</span></a></li>
+			<li class="nav-item active"><a class="nav-link" href="<c:url value='/orders/choosePainter'/>">Make Your Order<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/paymentDelivery'/>">Payment and Delivery</a></li>
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/galleryMain'/>">Gallery</a></li>
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/aboutMe'/>">About me</a></li>
@@ -64,7 +64,7 @@ body {
 						<h6 style="padding-left: 20px">
 							<strong>Hello ${loggedinuser.firstName}</strong>!
 						</h6>
-						<a class="dropdown-item" href="#">Account info</a>
+						<a class="dropdown-item" href="<c:url value='/accountInfo'/>">Account info</a>
 
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>

@@ -73,13 +73,11 @@
 							</div>
 						</td>
 						<td data-th="Quantity">${entry.key.minisQuantity}</td>
-						<td data-th="Price Each">${entry.key.minisAvgPrice} $</td>
-						<td class="actions" data-th="">
-							<a class="navbar-brand" href="<c:url value='/orders/deleteDetail-${entry.key.order_detail_id}'/>"><img border="0"
-		src="<%=request.getContextPath()%>/static/images/deleteButton.png" width="50" height="50" style="border-radius: 10px"></a>
-							<a class="navbar-brand" href="<c:url value='/orders/updateDetail-${entry.key.order_detail_id}'/>"><img border="0"
-		src="<%=request.getContextPath()%>/static/images/updateButton.png" width="50" height="50" style="border-radius: 10px"></a>
-						</td>
+						<td data-th="Price Each">${entry.key.minisAvgPrice}$</td>
+						<td class="actions" data-th=""><a class="navbar-brand" href="<c:url value='/orders/deleteDetail-${entry.key.order_detail_id}'/>"><img border="0"
+								src="<%=request.getContextPath()%>/static/images/deleteButton.png" width="50" height="50" style="border-radius: 10px"></a> <a class="navbar-brand"
+							href="<c:url value='/orders/updateDetail-${entry.key.order_detail_id}'/>"><img border="0" src="<%=request.getContextPath()%>/static/images/updateButton.png" width="50" height="50"
+								style="border-radius: 10px"></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

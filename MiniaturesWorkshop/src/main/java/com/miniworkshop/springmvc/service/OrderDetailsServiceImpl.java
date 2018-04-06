@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.miniworkshop.springmvc.dao.OrderDeatilsDAO;
+import com.miniworkshop.springmvc.model.User;
 import com.miniworkshop.springmvc.model.OrderDetails;
 
 @Service("orderDetailsService")
 @Transactional
 public class OrderDetailsServiceImpl implements OrderDetailsService {
-	
+
 	@Autowired
 	OrderDeatilsDAO dao;
 
@@ -25,35 +26,36 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
 	@Override
 	public void saveOrderDetails(OrderDetails orderDeatils) {
 		dao.saveOrderDetails(orderDeatils);
-		
+
 	}
 
 	@Override
 	public void updateOrderDetails(OrderDetails orderDeatils) {
-	dao.updateOrderDetails(orderDeatils);
-		
+		dao.updateOrderDetails(orderDeatils);
+
 	}
 
 	@Override
 	public void deleteOrderDetailsById(int orderDeatilsId) {
 		dao.deleteOrderDetailsById(orderDeatilsId);
-		
+
 	}
 
 	@Override
 	public List<OrderDetails> findAllOrderDetails() {
-		
+
 		return dao.findAllOrderDetails();
 	}
 
-
 	@Override
-	public List<OrderDetails> findAllOrderDetailsByOrder(int  orderId) {
-		// TODO Auto-generated method stub
+	public List<OrderDetails> findAllOrderDetailsByOrder(int orderId) {
 		return dao.findAllOrderDetailsByOrder(orderId);
 	}
-	
-	
-	
+
+	@Override
+	public List<OrderDetails> findAllOrderDetailsByCustomer(User userCustomer) {
+		return dao.findAllOrderDetailsByCustomer( userCustomer);
+
+	}
 
 }

@@ -61,7 +61,7 @@
 								</div>
 							</div>
 						</td>
-						<td data-th="Website">${manufacturer.manufWebsite}</td>
+						<td data-th="Website"><a href="${manufacturer.manufWebsite}">${manufacturer.manufWebsite}</a></td>
 						<td data-th="Country">${manufacturer.manufCountry}</td>
 						<td><a href="<%=request.getContextPath()%>/orders/stage2-${manufacturer.manuf_id}" class="btn btn-outline-info my-2 my-sm-0">Choose <i class="fa fa-angle-right"></i></a></td>
 					</tr>

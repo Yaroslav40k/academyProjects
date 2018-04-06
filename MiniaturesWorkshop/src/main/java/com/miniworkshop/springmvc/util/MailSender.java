@@ -42,11 +42,10 @@ public class MailSender extends HttpServlet {
 			@Override
 			public void run() {
 				Date date = new Date();
-				final String adminEmail = "artist.yaroslav@gmail.com";
-				final String password = "Sunnyboy27artist.yaroslav";
 
-				Session session = EmailUtil.createSession(adminEmail, password);
-				EmailUtil.sendMessage(session,customerName, customerEmail,adminEmail, customerEmailSubject, customerMessage);
+
+				Session session = EmailUtil.createSession();
+				EmailUtil.sendMessage(session,customerName, customerEmail,EmailUtil.adminEmail, customerEmailSubject, customerMessage);
 				Date date2 = new Date();
 				System.out.println("Time spent: " + (date2.getTime() - date.getTime()));
 			}
@@ -74,7 +73,7 @@ public class MailSender extends HttpServlet {
 				final String adminEmail = "artist.yaroslav@gmail.com";
 				final String password = "Sunnyboy27artist.yaroslav";
 
-				Session session = EmailUtil.createSession(adminEmail, password);
+				Session session = EmailUtil.createSession();
 				EmailUtil.sendMessage(session,customerName, customerEmail,adminEmail, customerEmailSubject, customerMessage);
 				Date date2 = new Date();
 				System.out.println("Time spent: " + (date2.getTime() - date.getTime()));

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.miniworkshop.springmvc.model.Order;
 import com.miniworkshop.springmvc.model.OrderDetails;
+import com.miniworkshop.springmvc.model.User;
 
 @Repository("orderDetailsDAO")
 public class OrderDetailsDAOImpl extends AbstractDao<Integer, OrderDetails> implements OrderDeatilsDAO {
@@ -53,6 +54,14 @@ public class OrderDetailsDAOImpl extends AbstractDao<Integer, OrderDetails> impl
 		Criteria criteria = createEntityCriteria().addOrder(org.hibernate.criterion.Order.asc("order_detail_id"));
 		criteria.add(Restrictions.eq("orderId", orderId));
 		List<OrderDetails> orderDeatils = (List<OrderDetails>) criteria.list();
+		return orderDeatils;
+	}
+
+	@Override
+	public List<OrderDetails> findAllOrderDetailsByCustomer(User userCustomer) {	
+		Criteria criteriaDeatils = createEntityCriteria().addOrder(org.hibernate.criterion.Order.asc("order_detail_id"));
+		criteriaDeatils.add(Restrictions.eq("userCustomer", userCustomer));
+		List<OrderDetails> orderDeatils = (List<OrderDetails>) criteriaDeatils.list();
 		return orderDeatils;
 	}
 
