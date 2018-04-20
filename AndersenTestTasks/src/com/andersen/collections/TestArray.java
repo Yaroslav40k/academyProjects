@@ -1,24 +1,66 @@
 package com.andersen.collections;
 
+import java.util.Random;
+import java.util.Stack;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestArray {
 
-	@Test
-	public void testCustomArray() {
-		System.out.println("This is test!");
-		CustomArrayList<String> firstCustomList = new CustomArrayList<>();
-		System.out.println("Array size " + firstCustomList.length());
+	CustomArrayList<Integer> list;
+	Integer elemToTest;
 
-		for (int i = 0; i < 10; i++) {
-			for (int y = 0; y < 3; y++) {
-				firstCustomList.add(i + " String");
-				System.out.println(i + " String trying to add...");
-			}
-			System.out.println("current elems in array "+firstCustomList.length());
+	@Before
+	public void init() {
+		list = new CustomArrayList<>();
+		elemToTest = 8;
 
+		for (int i = 0; i < 9; i++) {
+			list.add((int) (Math.random() * 9));
 		}
-		System.out.println();
-		System.out.println("Array size " + firstCustomList.length());
+		list.add(elemToTest);
+		System.out.println("New List after adding 10 elems:");
+		list.printCustomList();
+		
+	}
+
+	@Test
+	public void deleteElemTest() {
+		list.delete(elemToTest);
+		System.out.println("||List after deleting  elem " + elemToTest + ":");
+		list.printCustomList();
+
+	}
+
+	@Test
+	public void getElemByIndexTest() {
+		Integer elemToFindIndex = new Random().nextInt(list.length() - 1);
+		Integer elem = list.getByIndex(elemToFindIndex);
+		System.out.println("||Elem by index " + elemToFindIndex + " is : " + elem);
+	}
+	
+	@Test
+	public void getElemByValueTest() {
+		Integer elemToFind = list.getByValue(elemToTest);
+		System.out.println("||Elem by Value is :"+ elemToFind);
+	}
+	
+	@Test
+	public void findMaxTest() {
+		Integer max = list.findMax();
+		System.out.println("||Max Elem is :"+ max);
+	}
+	
+	@Test
+	public void findMinTest() {
+		Integer min = list.findMin();
+		System.out.println("||Min Elem is :"+ min);
+	}
+	
+	@Test
+	public void findAvgTest() {
+		Integer avg = list.findAvgOfAll();
+		System.out.println("||Avg Elem is :"+ avg);
 	}
 }
