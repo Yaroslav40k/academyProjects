@@ -8,7 +8,6 @@
 package com.andersen.collections;
 
 import java.util.Arrays;
-import java.util.TreeSet;
 
 public class CustomArrayList  <E extends Integer>{
 
