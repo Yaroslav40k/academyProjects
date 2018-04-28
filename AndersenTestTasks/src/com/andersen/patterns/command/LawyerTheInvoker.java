@@ -1,15 +1,27 @@
 package com.andersen.patterns.command;
 
 public class LawyerTheInvoker {
-	Command command;
-
-	public void setCommand(Command command) {
-		this.command = command;		
+	Command bootToTheHead;
+	Command swordToTheHead;
+	
+	
+	public void setBootToTheHead(Command bootToTheHead) {
+		this.bootToTheHead = bootToTheHead;
+	}
+	public void setSwordToTheHead(Command swordToTheHead) {
+		this.swordToTheHead = swordToTheHead;
 	}
 
-	public Command getCommand() {
-		return command;
+	
+	public void bootCommand() {
+		bootToTheHead.execute();
 	}
+	
+
+	public void swordCommand() {
+		swordToTheHead.execute();
+	}
+
 	
 	
 

@@ -2,18 +2,18 @@ package com.andersen.patterns.command;
 
 public class BootCommand implements Command {
 	
-	BootTheReceiver boot;
+	private HeadTheReceiver head;
 		
 
-	public BootCommand(BootTheReceiver boot) {
+	public BootCommand(HeadTheReceiver head) {
 		super();
-		this.boot = boot;
+		this.head = head;
 	}
 
 	@Override
 	public void execute() {
-		System.out.println("It`s a boot command, i give command to the boot!");
-		boot.action();
+		System.out.println("It`s a boot command");
+		head.actionOne();
 
 	}
 

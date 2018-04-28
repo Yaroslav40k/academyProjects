@@ -1,4 +1,4 @@
-package com.andersem.patterns.adapter;
+package com.andersen.patterns.adapter;
 
 import java.util.Enumeration;
 import java.util.Iterator;

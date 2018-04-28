@@ -2,18 +2,18 @@ package com.andersen.patterns.command;
 
 public class SwordCommand implements Command {
 	
-	SwordTheReceiver sword;
+	private HeadTheReceiver head;
 	
 
-	public SwordCommand(SwordTheReceiver sword) {
+	public SwordCommand(HeadTheReceiver head) {
 		super();
-		this.sword = sword;
+		this.head = head;
 	}
 
 	@Override
 	public void execute() {
-		System.out.println("It`s a sword command, i give command to the sword!");
-		sword.action();
+		System.out.println("It`s a sword command");
+		head.actionTwo();
 
 	}
 
