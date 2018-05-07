@@ -1,7 +1,11 @@
-package com.andersen.myCacheImpl;
+package com.andersen.myCacheImpl.tests;
 
 
 import org.junit.Test;
+
+import com.andersen.myCacheImpl.Cache;
+import com.andersen.myCacheImpl.TwoLevelCache;
+import com.andersen.myCacheImpl.strategy.Strategy;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,18 +13,25 @@ import java.nio.file.Path;
 
 import static org.hamcrest.core.Is.is;
 
+/*	Four basic Cache tests: 
+ * 	-ADD ELEMENT
+ * 	-REMOVE ELEMENT
+ * 	-MOVE ELEMENT TO UPPER LEVEL CACHE (RAM CACHE)
+ * 	-REMOVE LEAST RECENT USE ELEMENT
+ * */
+
 public class CacheTestImpl extends CacheTest
 {
     public static final int CAPACITY1 = 15;
     public static final int CAPACITY2 = 30;
     public static final String BASE_PATH = "src/com/andersen/files/temp";
 
-    private OverAllCacheImpl<Integer> cache;
+    private TwoLevelCache<Integer> cache;
 
     @Test
     public void testCapacity() throws IOException
     {
-        cache = new OverAllCacheImpl<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
+        cache = new TwoLevelCache<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
         assertThat( cache.getCapacity(), is( CAPACITY1 + CAPACITY2 ) );
         fillCache();
         putToCache( 9998, "New element" );
@@ -32,7 +43,7 @@ public class CacheTestImpl extends CacheTest
     public void testRemove() throws IOException
     {
         final int REMOVE_INDEX = CAPACITY2 - 1; // In level-2 cache after fillCache()
-        cache = new OverAllCacheImpl<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
+        cache = new TwoLevelCache<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
         fillCache();
 
         Path path = cache.getPath( REMOVE_INDEX );
@@ -47,7 +58,7 @@ public class CacheTestImpl extends CacheTest
     public void testMoveForward() throws IOException
     {
         final int INDEX = CAPACITY2 - 1; // In level-2 cache after fillCache()
-        cache = new OverAllCacheImpl<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
+        cache = new TwoLevelCache<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
         fillCache();
 
         Path path = cache.getPath( INDEX );
@@ -62,7 +73,7 @@ public class CacheTestImpl extends CacheTest
     @Test
     public void testLastRecentlyUsedRemove() throws IOException
     {
-    	cache = new OverAllCacheImpl<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
+    	cache = new TwoLevelCache<>(Strategy.LRU, CAPACITY1, CAPACITY2, BASE_PATH );
         final int LRU_INDEX = 2;
 
         // Fill level-1 cache

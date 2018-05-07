@@ -10,6 +10,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map.Entry;
 
+import com.andersen.myCacheImpl.maps.ImprovedLinkedHashMap;
+import com.andersen.myCacheImpl.utils.StorageCashDirCleaner;
+
+
+/*	 "Storage"(Hard drive) cache implementation.
+ *	 By default can hold max of 20 objectives. 
+ *
+ *  */
+
 public class StorageCache<K> implements Cache<K, Object> {
 
 	static final int DEFAULT_CAPACITY = 20;
@@ -35,7 +44,7 @@ public class StorageCache<K> implements Cache<K, Object> {
 		Path path = Paths.get(basePath);
 		if (Files.exists(path)) {
 			try {
-				Utils.removeRecursive(path);
+				StorageCashDirCleaner.removeRecursive(path);
 				Files.createDirectory(path);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -130,7 +139,7 @@ public class StorageCache<K> implements Cache<K, Object> {
 	private void removeAllFiles() throws IOException {
 		Path path = Paths.get(basePathForStorage);
 		if (Files.exists(path)) {
-			Utils.removeRecursive(path);
+			StorageCashDirCleaner.removeRecursive(path);
 		}
 	}
 

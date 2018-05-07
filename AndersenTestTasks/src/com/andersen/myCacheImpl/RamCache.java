@@ -3,7 +3,17 @@ package com.andersen.myCacheImpl;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.andersen.myCacheImpl.maps.ImprovedLinkedHashMap;
+
 import java.util.Set;
+
+
+/*	 "RAM"(Random Access Memory) cache implementation.
+ *	 By default can hold max of 10 objectives. 
+ *
+ *  */
+
 
 public class RamCache<K, V> implements Cache<K, V> {
 

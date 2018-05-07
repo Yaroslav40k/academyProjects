@@ -3,20 +3,30 @@ package com.andersen.myCacheImpl;
 import java.nio.file.Path;
 import java.util.Map;
 
-public class OverAllCacheImpl<K> implements Cache<K, Object> {
+import com.andersen.myCacheImpl.strategy.Strategy;
+
+
+/*	Main Two-Level Cache Class, contains "RAM"(Random Access Memory) cache and "Storage"(Hard drive) cache.
+ *	Can hold objectives typed by generic.
+ *	Capacity for both parts of the Cache can be set by user (10 and 20 by default).
+ *	Basic strategy is LRU.
+ * 
+ *  */
+
+public class TwoLevelCache<K> implements Cache<K, Object> {
 
 	private static final int DEFAULT_OVERALL_CAPACITY = RamCache.DEFAULT_CAPACITY+StorageCache.DEFAULT_CAPACITY;
 	private int overAllCapacity;
 	private RamCache<K, Object> ramCache;
 	private StorageCache<K> storageCache;
 
-	public OverAllCacheImpl() {
+	public TwoLevelCache() {
 		overAllCapacity = DEFAULT_OVERALL_CAPACITY;
 		ramCache = new RamCache<K, Object>();
 		storageCache = new StorageCache<>();
 	}
 
-	public OverAllCacheImpl(Strategy strategy, int ramCapacity, int storageCapacity, String basePathForStorage) {
+	public TwoLevelCache(Strategy strategy, int ramCapacity, int storageCapacity, String basePathForStorage) {
 		overAllCapacity = ramCapacity + storageCapacity;
 		ramCache = new RamCache<K, Object>(ramCapacity);
 		storageCache = new StorageCache<>(storageCapacity, basePathForStorage);

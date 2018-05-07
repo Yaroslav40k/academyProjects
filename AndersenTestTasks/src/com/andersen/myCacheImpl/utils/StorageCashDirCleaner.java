@@ -1,4 +1,4 @@
-package com.andersen.myCacheImpl;
+package com.andersen.myCacheImpl.utils;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -7,7 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class Utils
+/* Util to clean  TEMP directory for Storage cache */
+
+public class StorageCashDirCleaner
 {
     public static void removeRecursive( Path path ) throws IOException
     {
