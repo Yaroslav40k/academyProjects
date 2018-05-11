@@ -1,44 +1,46 @@
 package com.andersen.JDBC;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.andersen.JDBC.connections.MySQLConnection;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+import com.andersen.JDBC.connections.ConnectionsPool;
 
 /*
  * Tests basic operations with MySQL database : INSERT/UPDATE/DELETE/SELECT
+ * Connection is provided by Apache Connections Pool
  */
 
 public class ConnectionTest {
 
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException{
 		
-		Connection connection = MySQLConnection.getMySQLConnection();
-		
-		//addData(connection);
-		//selectData(connection );
-		//updateData(connection);
-		//deleteData(connection);
-		
-		connection.close();
+			ConnectionsPool connectionsPool = new ConnectionsPool();
+			DataSource dataSource = connectionsPool.setUpPool();
+			Connection connection = dataSource.getConnection();
+			
+			addData(connection);
+			updateData(connection);
+			deleteData(connection);
+			selectData(connection );
+			
+			connection.close();
+			connectionsPool.printDbStatus();
+			
 	}
-
+	//with  CallableStatement
 	private static void addData(Connection connection) throws ClassNotFoundException, SQLException {
 
 		String sql = "INSERT INTO leaders ( leader_name, leader_power, leader_money) VALUES (?, ?, ?)";
 
-		PreparedStatement statement = connection.prepareStatement(sql);	
-		statement.setString(1, "Gaius Pupidius");
-		statement.setInt(2, 10);
-		statement.setInt(3, 999999);
-
-		int rowsInserted = statement.executeUpdate();
-		if (rowsInserted > 0) {
-			System.out.println("Inserted successfully!");
-		}
+		CallableStatement statement = connection.prepareCall("add_roman__leader_procedure");
+		System.out.println("Inserted successfully!");
 	}
-	
+	//with classic PreparedStatement (accepts parameters at runtime)
 	private static void updateData(Connection connection) throws ClassNotFoundException, SQLException {
 
 		String sql = "UPDATE  leaders SET  leader_power=?, leader_money=? WHERE leader_name=?";
@@ -48,12 +50,9 @@ public class ConnectionTest {
 		statement.setInt(2, 700000);
 		statement.setString(3, " Gaius Pupidius");
 
-		int rowsUpdated = statement.executeUpdate();
-		if (rowsUpdated > 0) {
-			System.out.println("Updated successfully!");
-		}
+		System.out.println("Updated successfully!");
 	}
-	
+	//with classic PreparedStatement (accepts parameters at runtime)
 	private static void deleteData(Connection connection) throws ClassNotFoundException, SQLException {
 
 		String sql = "DELETE FROM  leaders  WHERE leader_name=?";
@@ -61,16 +60,13 @@ public class ConnectionTest {
 		PreparedStatement statement = connection.prepareStatement(sql);	
 		statement.setString(1, "Gaius Pupidius");
 
-		int rowsDeleted = statement.executeUpdate();
-		if (rowsDeleted > 0) {
-			System.out.println("Deleted successfully!");
-		}
+		System.out.println("Deleted successfully!");
 	}
-
+	//with simple Statement (it can not hold parameters!)
 	private static void selectData(Connection connection) throws ClassNotFoundException, SQLException {
 
 		String sql = "SELECT leader_id, leader_name, leader_power, leader_money FROM leaders";
-		PreparedStatement statement = connection.prepareStatement(sql);	
+		Statement statement = connection.prepareStatement(sql);	
 		ResultSet resultSet = statement.executeQuery(sql);
 
 		while ( resultSet.next()) {
