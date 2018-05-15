@@ -9,9 +9,17 @@
 	<properties>
 		<apache.commons.version>1.4</apache.commons.version>
 		<mysql.connector.version>5.1.46</mysql.connector.version>
+		<hibernate.version>4.3.11.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
 
 		<!-- MySQL -->
 		<dependency>

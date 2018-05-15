@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.andersen.hibernate.pojo.Leader" table="leaders">
+		<meta attribute="class-description">
+			This class contains leaders details.
+		</meta>
+		<id name="leaderId" type="int" column="leader_id">
+			<generator class="native" />
+		</id>
+		<property name="leaderName" column="leader_name" type="string" />
+		<property name="leaderPower" column="leader_power" type="int" />
+		<property name="leaderMoney" column="leader_money" type="int" />
+		 
+		 <set name="legions" table="legions" 
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="leader_id" not-null="true" />
+            </key>
+            <one-to-many class="com.andersen.hibernate.pojo.Legion" />
+        </set>
+	
+	</class>
+</hibernate-mapping>
