@@ -3,6 +3,7 @@ package com.andersen.hibernate.pojo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,10 +16,12 @@ import javax.persistence.Table;
 /*
  * Represents ancient roman leader instance
  * 			params :id , name, power , money, legions list
- * 					
+ * 			uses Second level cache			
  */
+
 @Entity
 @Table(name = "leaders")
+@Cacheable
 public class LeaderWithAnnotations {
 
 	@Id

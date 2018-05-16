@@ -10,6 +10,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import com.andersen.hibernate.pojo.LeaderWithAnnotations;
 import com.andersen.hibernate.pojo.LegionWithAnnotations;
+import com.andersen.hibernate.pojo.SlaveWithAnnotations;
 
 /*
  * Tests functionality of Annotations-based POJO classes
@@ -26,10 +27,13 @@ public class HibernateAnnoConfigMain {
 		DetachedCriteria findCaesarArmy = DetachedCriteria.forClass(LeaderWithAnnotations.class)
 				.add(Restrictions.like("leaderName", "%Caesar")).setFetchMode("legions", FetchMode.JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		DetachedCriteria findSlaves = DetachedCriteria.forClass(SlaveWithAnnotations.class);
+		DetachedCriteria findLeaders = DetachedCriteria.forClass(LeaderWithAnnotations.class);
+				
 
 		SessionFactory sessionFactory = HiberbateUtils.createFectory();
 		makeQuerry(sessionFactory, findAllArmies);
-		makeQuerry(sessionFactory, findCaesarArmy);
 		sessionFactory.close();
 	}
 
@@ -53,6 +57,17 @@ public class HibernateAnnoConfigMain {
 			for (LegionWithAnnotations legion : legions) {
 				System.out.println("|	Legions : " + legion.getLegioName());
 			}
+			System.out.println("/-------------/-------------/-------------/");
+		}
+	}
+	
+	private static void viewResultForSlaves(Criteria criteria) {
+		List<SlaveWithAnnotations> slavesList = criteria.list();
+		System.out.println("/-------------/SLAVES Details/-------------/");
+		slavesList.size();
+		for (SlaveWithAnnotations slave : slavesList) {
+			System.out.println("| Slave ID : " + slave.getSlaveId());
+			System.out.println("| Slave Name : " + slave.getSlaveName());
 			System.out.println("/-------------/-------------/-------------/");
 		}
 	}

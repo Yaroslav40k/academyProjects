@@ -18,5 +18,6 @@
 
 		<mapping class="com.andersen.hibernate.pojo.LeaderWithAnnotations" />
 		<mapping class="com.andersen.hibernate.pojo.LegionWithAnnotations" />
+		<mapping class="com.andersen.hibernate.pojo.SlaveWithAnnotations" />
 	</session-factory>
 </hibernate-configuration>
