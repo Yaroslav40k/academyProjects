@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- definition of simple elements -->
+	<xsd:element name="Name" type="xsd:string" />
+	<xsd:element name="Founder" type="xsd:string" />
+	<xsd:element name="FoundationDate" type="xsd:string" />
+	<xsd:element name="Symbol" type="xsd:string" />
+	<xsd:element name="Province" type="xsd:string" />
+	<xsd:element name="LegioneersCount" type="xsd:int" />
+
+	<!-- definition of complex elements -->
+	<xsd:element name="Legion">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Name" />
+				<xsd:element ref="Founder" />
+				<xsd:element ref="FoundationDate" />
+				<xsd:element ref="Symbol" />
+				<xsd:element ref="Province" />
+				<xsd:element ref="LegioneersCount" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="RomanLegionsCatalogue">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Legion" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

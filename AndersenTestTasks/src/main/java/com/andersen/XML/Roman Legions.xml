@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RomanLegionsCatalogue>
+    <Legion>
+        <Name>Legio I Germanica</Name>
+        <Founder>Julius Caesar</Founder>
+        <FoundationDate>48 BC</FoundationDate>
+        <Symbol>Taurus</Symbol>
+        <Province>Hispania Tarraconensis</Province>
+        <LegioneersCount>3500</LegioneersCount>
+    </Legion>
+</RomanLegionsCatalogue>

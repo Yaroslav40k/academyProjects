@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RomanLegionsCatalogue>
+	<Legion>
+		<Name>Legio I Germanica</Name>
+		<Founder>Julius Caesar</Founder>
+		<FoundationDate>48 BC</FoundationDate>
+		<Symbol>Taurus</Symbol>
+		<Province>Hispania Tarraconensis</Province>
+		<LegioneersCount>3500</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio II Augusta</Name>
+		<Founder>Gaio Vibio Pansa</Founder>
+		<FoundationDate>43 BC</FoundationDate>
+		<Symbol>Capricornus</Symbol>
+		<Province>Hispania Tarraconensis</Province>
+		<LegioneersCount>3500</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio III Cyrenaica </Name>
+		<Founder>Mark Antony</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>1100</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio IV Macedonica </Name>
+		<Founder>Julius Caesar</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>Bull</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>500</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio V Alaudae</Name>
+		<Founder>Julius Caesar</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>Elephant</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>7</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio VI Ferrata </Name>
+		<Founder>Julius Caesar</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>0</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio VII Claudia Pia Fidelis </Name>
+		<Founder>unknown</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>0</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio VIII Augusta</Name>
+		<Founder>unknown</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>0</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio IX Hispana</Name>
+		<Founder>unknown</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>0</LegioneersCount>
+	</Legion>
+	<Legion>
+		<Name>Legio X Fretensis </Name>
+		<Founder>unknown</Founder>
+		<FoundationDate>unknown</FoundationDate>
+		<Symbol>unknown</Symbol>
+		<Province>unknown</Province>
+		<LegioneersCount>0</LegioneersCount>
+	</Legion>
+</RomanLegionsCatalogue>
