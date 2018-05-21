@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from LegionServiceImplService WSDL service -->
+
+  <service name="LegionServiceImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://service.andersen.com"/>
+      <parameter name="wsdlServiceElement" value="LegionServiceImplService"/>
+      <parameter name="schemaQualified" value="http://service.andersen.com,http://model.andersen.com"/>
+      <parameter name="wsdlServicePort" value="LegionServiceImpl"/>
+      <parameter name="className" value="com.andersen.service.LegionServiceImpl"/>
+      <parameter name="wsdlPortType" value="LegionServiceImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://service.andersen.com" xmlns:retNS="http://service.andersen.com" xmlns:rtns="http://model.andersen.com" name="getAllLegions" qname="operNS:getAllLegions" returnQName="retNS:getAllLegionsReturn" returnType="rtns:Legion" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://service.andersen.com" xmlns:retNS="http://service.andersen.com" xmlns:rtns="http://model.andersen.com" name="getLegion" qname="operNS:getLegion" returnQName="retNS:getLegionReturn" returnType="rtns:Legion" soapAction="">
+        <parameter xmlns:pns="http://service.andersen.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:legionName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://service.andersen.com" xmlns:retNS="http://service.andersen.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteLegion" qname="operNS:deleteLegion" returnQName="retNS:deleteLegionReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://service.andersen.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:legionName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://service.andersen.com" xmlns:retNS="http://service.andersen.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addLegion" qname="operNS:addLegion" returnQName="retNS:addLegionReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://service.andersen.com" xmlns:tns="http://model.andersen.com" qname="pns:legion" type="tns:Legion"/>
+      </operation>
+      <parameter name="allowedMethods" value="getLegion addLegion getAllLegions deleteLegion"/>
+
+      <typeMapping xmlns:ns="http://model.andersen.com" qname="ns:Legion" type="java:com.andersen.model.Legion" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.andersen.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service.andersen.com" xmlns:intf="http://service.andersen.com" xmlns:tns1="http://model.andersen.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service.andersen.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.andersen.com"/>
+   <element name="getAllLegions">
+    <complexType/>
+   </element>
+   <element name="getAllLegionsResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getAllLegionsReturn" type="tns1:Legion"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLegion">
+    <complexType>
+     <sequence>
+      <element name="legionName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLegionResponse">
+    <complexType>
+     <sequence>
+      <element name="getLegionReturn" type="tns1:Legion"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteLegion">
+    <complexType>
+     <sequence>
+      <element name="legionName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteLegionResponse">
+    <complexType>
+     <sequence>
+      <element name="deleteLegionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addLegion">
+    <complexType>
+     <sequence>
+      <element name="legion" type="tns1:Legion"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addLegionResponse">
+    <complexType>
+     <sequence>
+      <element name="addLegionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.andersen.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="Legion">
+    <sequence>
+     <element name="founder" nillable="true" type="xsd:string"/>
+     <element name="legionName" nillable="true" type="xsd:string"/>
+     <element name="strength" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="addLegionResponse">
+
+      <wsdl:part element="impl:addLegionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLegionResponse">
+
+      <wsdl:part element="impl:getLegionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addLegionRequest">
+
+      <wsdl:part element="impl:addLegion" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllLegionsResponse">
+
+      <wsdl:part element="impl:getAllLegionsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteLegionRequest">
+
+      <wsdl:part element="impl:deleteLegion" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllLegionsRequest">
+
+      <wsdl:part element="impl:getAllLegions" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLegionRequest">
+
+      <wsdl:part element="impl:getLegion" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteLegionResponse">
+
+      <wsdl:part element="impl:deleteLegionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="LegionServiceImpl">
+
+      <wsdl:operation name="getAllLegions">
+
+         <wsdl:input message="impl:getAllLegionsRequest" name="getAllLegionsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAllLegionsResponse" name="getAllLegionsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLegion">
+
+         <wsdl:input message="impl:getLegionRequest" name="getLegionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getLegionResponse" name="getLegionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteLegion">
+
+         <wsdl:input message="impl:deleteLegionRequest" name="deleteLegionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteLegionResponse" name="deleteLegionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addLegion">
+
+         <wsdl:input message="impl:addLegionRequest" name="addLegionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addLegionResponse" name="addLegionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="LegionServiceImplSoapBinding" type="impl:LegionServiceImpl">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getAllLegions">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllLegionsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllLegionsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLegion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLegionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLegionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteLegion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteLegionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteLegionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addLegion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addLegionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addLegionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="LegionServiceImplService">
+
+      <wsdl:port binding="impl:LegionServiceImplSoapBinding" name="LegionServiceImpl">
+
+         <wsdlsoap:address location="http://localhost:8080/AndersenSOAP/services/LegionServiceImpl"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
