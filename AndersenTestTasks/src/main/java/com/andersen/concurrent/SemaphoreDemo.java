@@ -1,7 +1,6 @@
 package com.andersen.concurrent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreDemo {

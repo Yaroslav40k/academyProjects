@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class BinarySearch {
 
 	public static void main(String[] args) {
-
+ 
 		int[] taskNumberArray = { 1, 2, 3, 4, 5, 6, 7 };
 		for (int i = 1; i < 8; i++) {
 			System.out.println(binarySearch(taskNumberArray, i));

@@ -1,6 +1,5 @@
 package com.andersen.JDBC;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,9 +34,7 @@ public class ConnectionTest {
 	//with  CallableStatement
 	private static void addData(Connection connection) throws ClassNotFoundException, SQLException {
 
-		String sql = "INSERT INTO leaders ( leader_name, leader_power, leader_money) VALUES (?, ?, ?)";
-
-		CallableStatement statement = connection.prepareCall("add_roman__leader_procedure");
+		connection.prepareCall("add_roman__leader_procedure");
 		System.out.println("Inserted successfully!");
 	}
 	//with classic PreparedStatement (accepts parameters at runtime)

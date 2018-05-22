@@ -1,8 +1,6 @@
 package com.andersen.collections;
 
 import java.util.Random;
-import java.util.Stack;
-
 import org.junit.Before;
 import org.junit.Test;
 

@@ -85,8 +85,6 @@ public class GrafTheory {
 		GrafTheory theory = new GrafTheory();
 		theory.addFriends();
 		theory.checkIfMangoSeller(friends);
-
-		
+	
 	}
-
 }

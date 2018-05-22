@@ -1,7 +1,5 @@
 package com.andersen.algoritms;
 
-import java.util.ArrayList;
-
 public class Recursion {
 
 	public static void main(String[] args) {

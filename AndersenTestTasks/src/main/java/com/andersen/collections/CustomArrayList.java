@@ -121,6 +121,7 @@ public class CustomArrayList  <E extends Integer>{
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	public E findMax() {
 		E max = (E) primarisArray[0];
 		for (int i = 1; i < primarisArray.length; i++) {
