@@ -1,0 +1,24 @@
+
+apply plugin: 'java-library'
+apply plugin: 'application'
+
+mainClassName = 'com.andersen.gradle.MainApp'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:20.0'  // Google Guava dependency
+    compile "log4j:log4j:1.2.17" // Log4j dependency
+    compile project(":library_project") // add classes of out second part of project (library_project)
+  	testCompile 'junit:junit:4.12'         // JUnit dependency for testing
+}
+
+jar {
+	manifest.attributes("Main-Class": mainClassName);
+}
